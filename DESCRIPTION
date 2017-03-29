@@ -1,0 +1,27 @@
+Package: ReinforcementLearning
+Type: Package
+Title: Model-Free Reinforcement Learning
+Version: 0.2
+Date: 2017-03-20
+Authors@R: c(person("Nicolas", "Proellochs", email="nicolas.proellochs@is.uni-freiburg.de",
+                    role=c("aut", "cre")),
+             person("Stefan", "Feuerriegel", email="stefan.feuerriegel@is.uni-freiburg.de",
+                    role=c("aut")))
+Maintainer: Nicolas Proellochs <nicolas.proellochs@is.uni-freiburg.de>
+Description: Performs model-free reinforcement learning in R. This implementation allows to learn
+    an optimal policy based on sample sequences consisting of states, actions and rewards. In 
+    addition, it supplies multiple predefined reinforcement learning algorithms, such as experience 
+    replay.
+License: MIT + file LICENSE
+Depends: R (>= 3.1.0)
+Imports:
+    ggplot2,
+    hash (>= 2.0),
+    data.table
+Suggests:
+    testthat,
+    knitr,
+    rmarkdown
+LazyData: TRUE
+RoxygenNote: 5.0.1
+VignetteBuilder: knitr

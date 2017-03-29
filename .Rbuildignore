@@ -1,0 +1,5 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^ReinforcementLearning\.pdf$
+^README\.Rmd$
+^README-.*\.png$

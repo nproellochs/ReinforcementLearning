@@ -1,0 +1,227 @@
+---
+title: "Reinforcement Learning in R"
+author: "Nicolas Proellochs"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Reinforcement Learning in R}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include=FALSE}
+set.seed(0)
+```
+
+This vignette gives a short introduction to the `ReinforcementLearning` package which allows to perform model-free reinforcement in *R*. The implementation uses input data in the form of sample sequences consisting of states, actions and rewards. Based on such training examples, the package allows a reinforcement learning agent to learn an optimal policy that defines the best possible action in each state. In the following, we present multiple step-by-step examples to illustrate how to take advantage of the capabilities of the `ReinforcementLearning` package. Moreover, we present methods to customize learning and action selection behavior of the agent. Main features of the `ReinforcementLearning` include but are not limited to
+
+- Learning an optimal policy from a fixed set of a priori-known transition samples
+- Predefined learning rules and action selection modes
+- A highly customizable framework for model-free reinforcement learning tasks
+
+# Introduction
+
+Reinforcement learning refers to the problem of an agent that aims to learn optimal behavior through trial-and-error interactions with a dynamic environment. All learning algorithms for reinforcement learning share the property that the feedback of the agent is restricted to a reward signal that indicates how well the agent is behaving. In contrast to supervised machine learning methods, an instruction how to improve its behavior is never present. Thus, the goal and challenge of reinforcement learning is to improve the behavior of an agent given only this limited type of feedback.
+
+## The reinforcement learning problem
+
+In reinforcement learning, the decision maker, i.e. the agent, interacts with an environment over a sequence of observations and seeks a reward to be maximized over time. Formally, the model consists of a finite set of environment states $S$, a finite set of agent actions $A$, and a set of scalar reinforcement signals, i.e. rewards, $R$. At each iteration $i$, the agent observes some representation of the environment's state $s_i \in S$. On that basis, the agent selects an action $a_i \in A(s_i)$, where $A(s_i) \subseteq A$ denotes the set of actions available in state $s_i$. After each iteration, the agent receives a numerical reward $r_{i+1} \in R$, and observes a new state $s_{i+1}$. 
+
+## Policy learning
+
+In order to store current knowledge, the reinforcement learning method introduces a so-called state-action function $Q(s_i,a_i)$ that defines the expected value of each possible action $a_i$ in each state $s_i$. If $Q(s_i,a_i)$ is known, then the optimal policy $\pi^*(s_i,a_i)$ is given by the action $a_i$ that maximizes $Q(s_i,a_i)$ given the state $s_i$. Consequently, the learning problem of the agent is to maximize the expected reward by learning an optimal policy function $\pi^*(s_i,a_i)$. 
+
+## Experience replay
+
+Experience replay allows reinforcement learning agents to remember and reuse experiences from the past. The underlying idea is to speed up convergence by replaying observed state transitions repeatedly to the agent, as if they were new observations collected while interacting with a system. Hence, experience replay solely requires input data in the form of sample sequences consisting of states, actions and rewards. These data points can be, for example, collected from a running system without the need of direct interaction. The stored training examples then allow the agent to learn a state-action function and an optimal policy for every state transition in the input data. In a next step, the policy can be applied to the system for validation purposes or to collect new data points (e.g. in order to iteratively improve the current policy). As its main advantage, experience replay can speed up convergence, by allowing to back-propagate information from updated states to preceding states without further interaction.
+
+# Setup of the ReinforcementLearning package
+
+Even though reinforcement learning has recently gained a great deal of traction in studies that perform human-like learning, the available tools are not yet living up to the needs of researchers and practitioners. The `ReinforcementLearning` package is intended to partially close this gap and offer capabilities to perform model-free reinforcement learning in a highly customizable framework.
+
+## Installation
+
+Using the `devtools` package, you can easily install the latest development version of `ReinforcementLearning` as follows.
+
+```{r,eval=FALSE}
+# install.packages("devtools")
+
+# Option 1: download and install latest version from GitHub
+devtools::install_github("nproellochs/ReinforcementLearning")
+
+# Option 2: install directly from bundled archive
+devtoos::install_local("ReinforcementLearning_1.0.0.tar.gz")
+```
+
+## Package loading
+
+Afterwards, one merely needs to load the `ReinforcementLearning` package as follows.
+
+```{r, message=FALSE}
+library(ReinforcementLearning)
+```
+
+# Usage
+
+The following sections present the usage and main functionality of the `ReinforcementLearning` package.
+
+## Data format
+
+The `ReinforcementLearning` package uses experience replay to learn an optimal policy based on past experience in the form of sample sequences consisting of states, actions and rewards Here, each training example consists of a state transition tuple *(s,a,r,s_new)* as described in the following. 
+
+* **s** The current environment state.
+* **a** The selected action in the current state.
+* **r** The immediate reward received after transitioning from the current state to the next state.
+* **s_new** The next environment state.
+
+Note:
+
+* The input data must be a dataframe in which each row represents a state transition tuple *(s,a,r,s_new)*.
+
+## Read-in sample experience
+
+The state transition tuples can be collected from an external source and easily be read-in into *R*. The sample experience can then be used to train an reinforcement learning agent without requiring further interaction with the environment. The following example shows an exemplary dataset containing game states of 100,000 randomly sampled Tic Tac Toe games. 
+
+```{r, message=FALSE}
+data("tictactoe")
+head(tictactoe, 5)
+```
+
+## Experience sampling using an environment function
+
+The `ReinforcementLearning` package is shipped with a built-in capability to sample experience from a function that defines the dynamics of the environment. If the the dynamics of the environment are known a priori, one can thus set up an arbitrary complex environment function in *R* and sample state transition tuples. This function has to be manually implemented and must take a state and an action as input. The return value must be a list containing the name of the next state and the reward. As a main advantage, this way of experience sampling allows to easily validate the performance of reinforcement learning, by applying the learned policy on newly generated samples.
+
+```
+environment <- function(state, action) {
+  ...
+  return(list("NextState" = newState,
+              "Reward" = reward))
+}
+```
+
+In the following, we present an example that illustrates how to generate sample experience using an environment function. Here, we collect experience from an agent that navigates from a random starting position to a goal position on a simulated 2x2 grid (see Figure below). 
+
+|-----------|  
+|  s1  |  s4  |   
+|  s2  &nbsp;  s3  |   
+|-----------|  
+
+Each cell on the grid represents one state which leads to a total number of 4 states. The grid is surrounded by a wall which makes it impossible for the agent to move off the grid. In addition, the agent faces a wall between s1 and s4. At each state, the agent randomly chooses one out of four possible actions, i. e. to move up, down, left, right. The agent encounters the following reward structure. Crossing each square on the grid leads to a negative reward of -1. If the agent reaches the goal position, it earns a reward of 10.
+
+
+```{r, message=FALSE}
+# Load exemplary environment (gridworld)
+env <- gridworldEnvironment
+print(env)
+
+# Define state and action sets
+states <- c("s1", "s2", "s3", "s4")
+actions <- c("up", "down", "left", "right")
+
+# Sample N = 1000 random sequences from the environment
+data <- sampleExperience(N = 1000, env = env, states = states, actions = actions)
+head(data)
+```
+
+
+## Performing reinforcement learning
+
+The following example shows how to learn a reinforcement learning agent using input data in the form of sample sequences 
+consisting of states, actions and rewards. The 'data' argument must be a dataframe object in which each row represents a state transition tuple *(s,a,r,s_new)*. Moreover, the user is required to specify the column names of the individual tuple elements in 'data'. 
+
+```{r, message=FALSE}
+# Define reinforcement learning parameters
+control <- list(alpha = 0.1, gamma = 0.5, epsilon = 0.1)
+
+# Perform reinforcement learning
+model <- ReinforcementLearning(data, s = "State", a = "Action", r = "Reward", 
+                               s_new = "NextState", control = control)
+
+# Print result
+print(model)
+```
+
+The result of the learning process is a state-action table and an optimal policy that defines the best possible action in each state.
+
+```{r, message=FALSE}
+# Print policy
+policy(model)
+```
+
+## Updating an existing policy
+
+Specifying an environment function to model the dynamics of the environment allows to easily validate the performance of the agent. For this purpose, one simply applies the learned policy on newly generated samples. For this purpose, the `ReinforcementLearning` package comes with an additional predefined action selection mode, namely 'epsilon-greedy'. In this strategy, the agent explores the environment by selecting an action at random with probability $1-\epsilon$. Alternatively, the agent exploits its current knowledge by choosing the optimal action with probability $1-\epsilon$. 
+
+The following example shows how to sample new experience from an existing policy using 'epsilon-greedy' action selection. The result are new state transition samples ('data_new') with significantly higher rewards compared to the the original sample ('data').
+
+
+```{r, message=FALSE}
+# Define reinforcement learning parameters
+control <- list(alpha = 0.1, gamma = 0.5, epsilon = 0.1)
+
+# Sample N = 1000 sequences from the environment using epsilon-greedy action selection
+data_new <- sampleExperience(N = 1000, env = env, states = states, actions = actions, 
+                             model = model, actionSelection = "epsilon-greedy", 
+                             control = control)
+head(data_new)
+
+# Update the existing policy using new training data
+model_new <- ReinforcementLearning(data_new, s = "State", a = "Action", r = "Reward", 
+                                   s_new = "NextState", control = control, model = model)
+
+# Print result
+print(model_new)
+summary(model_new)
+```
+
+```{r, message=FALSE, fig.width=5, fig.height=3}
+# Plot reinforcement learning curve
+plot(model_new)
+```
+
+# Parameter configuration
+
+The `ReinforcementLearning` package allows to adjust the following parameters in order to customize the learning behavior of the agent.
+
+* **alpha** The learning rate, set between 0 and 1. Setting it to 0 means that the Q-values are never updated, hence nothing is learned. Setting a high value such as 0.9 means that learning can occur quickly.
+* **gamma** Discount factor, set between 0 and 1. Determines the importance of future rewards. A factor of 0 will make the agent short-sighted by only considering current rewards, while a factor approaching 1 will make it strive for a long-term high reward .
+* **epsilon** Exploration parameter, set between 0 and 1. Defines the exploration mechanism in $\epsilon$-greedy action selection. In this strategy, the agent explores the environment by selecting an action at random with probability $\epsilon$. Alternatively, the agent exploits its current knowledge by choosing the optimal action with probability $1-\epsilon$. This parameter is only required for sampling new experience based on an existing policy. 
+* **iter** Number of repeated learning iterations. Iter is an integer greater than 0. The default is set to 1.
+
+```{r, eval=FALSE}
+# Define control object
+control <- list(alpha = 0.1, gamma = 0.1, epsilon = 0.1)
+
+# Pass learning parameters to reinforcement learning function
+model <- ReinforcementLearning(data, iter = 10, control = control)
+```
+
+# Working example: Learning Tic Tac Toe
+
+The following example shows the usage of `ReinforcementLearning` in an applied setting. More precisely, we utilize a dataset containing 406,541 games states of Tic Tac Toe to learn the optimal actions for each state of the board. 
+
+```{r, eval=FALSE}
+# Load dataset
+data("tictactoe")
+
+# Define reinforcement learning parameters
+control <- list(alpha = 0.2, gamma = 0.4, epsilon = 0.1)
+
+# Perform reinforcement learning
+model <- ReinforcementLearning(tictactoe, s = "State", a = "Action", r = "Reward", 
+                               s_new = "NextState", iter = 1, control = control)
+
+# Print optimal policy
+policy(model)
+```
+
+Notes: 
+
+* All states are observed from the perspective of player X who is also assumed to have played first.
+* The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row wins the game. Reward of player X is +1 for 'win', 0 for 'draw', and -1 for 'loss'.
+
+## License
+
+**ReinforcementLearning** is released under the [MIT License](https://opensource.org/licenses/MIT)
+
+Copyright (c) 2017 Nicolas Pröllochs & Stefan Feuerriegel
