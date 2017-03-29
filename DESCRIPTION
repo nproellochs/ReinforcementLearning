@@ -13,7 +13,7 @@ Description: Performs model-free reinforcement learning in R. This implementatio
     addition, it supplies multiple predefined reinforcement learning algorithms, such as experience 
     replay.
 License: MIT + file LICENSE
-Depends: R (>= 3.1.0)
+Depends: R (>= 3.2.0)
 Imports:
     ggplot2,
     hash (>= 2.0),
