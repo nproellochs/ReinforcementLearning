@@ -3,6 +3,8 @@
 Reinforcement Learning
 ======================
 
+[![Build Status](https://travis-ci.org/nproellochs/ReinforcementLearning.svg?branch=master)](https://travis-ci.org/nproellochs/ReinforcementLearning) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/ReinforcementLEarning)](https://cran.r-project.org/package=ReinforcementLearning)
+
 **ReinforcementLearning** performs model-free reinforcement learning in R. This implementation allows to learn an optimal policy based on sample sequences consisting of states, actions and rewards. In addition, it supplies multiple predefined reinforcement learning algorithms, such as experience replay.
 
 Overview
@@ -82,4 +84,4 @@ License
 
 **ReinforcementLearning** is released under the [MIT License](https://opensource.org/licenses/MIT)
 
-Copyright (c) 2017 Nicolas Pröllochs & Stefan Feuerriegel
+Copyright (c) 2017 Nicolas PrÃ¶llochs & Stefan Feuerriegel
