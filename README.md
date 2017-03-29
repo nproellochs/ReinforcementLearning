@@ -20,18 +20,13 @@ Installation
 Using the **devtools** package, you can easily install the latest development version of **ReinforcementLearning** with
 
 ``` r
-# install.packages("devtools")
+install.packages("devtools")
 
-# Option 1: download and install latest version from GitHub
+# Recommended option: download and install latest version from "GitHub"
 devtools::install_github("nproellochs/ReinforcementLearning")
-
-# Option 2: install directly from bundled archive
-devtoos::install_local("ReinforcementLearning_1.0.0.tar.gz")
 ```
 
 Notes:
-
--   In the case of option 2, you have to specify the path either to the directory of **ReinforcementLearning** or to the bundled archive **ReinforcementLearning\_1.0.0.tar.gz**
 
 -   A CRAN version has not yet been released.
 
@@ -51,12 +46,12 @@ The following example shows how to learn a reinforcement learning agent using in
 data <- sampleGridSequence(N = 1000)
 head(data)
 #>   State Action Reward NextState
-#> 1    s4   down     -1        s4
-#> 2    s2   left     -1        s2
-#> 3    s2   left     -1        s2
-#> 4    s3   down     -1        s3
-#> 5    s4  right     -1        s4
-#> 6    s1     up     -1        s1
+#> 1    s4   left     -1        s4
+#> 2    s2  right     -1        s3
+#> 3    s2  right     -1        s3
+#> 4    s3   left     -1        s2
+#> 5    s4     up     -1        s4
+#> 6    s1   down     -1        s2
 
 # Define reinforcement learning parameters
 control <- list(alpha = 0.1, gamma = 0.1, epsilon = 0.1)
@@ -68,18 +63,18 @@ model <- ReinforcementLearning(data, s = "State", a = "Action", r = "Reward",
 # Print result
 print(model)
 #> State-Action function Q
-#>    right       up        down        left     
-#> s1 -1.098634   -1.097283 -1.00241    -1.096258
-#> s2 -0.02444219 -1.099662 -1.004478   -1.003711
-#> s3 -0.01900075 9.878406  -0.03684077 -1.002955
-#> s4 -1.106392   -1.105486 -1.105965   -1.09616 
+#>          right        up        down       left
+#> s1 -1.09619438 -1.098533 -1.00183072 -1.0978962
+#> s2 -0.01980279 -1.097758 -1.00252228 -1.0037977
+#> s3 -0.02335524  9.884394 -0.01722548 -0.9985081
+#> s4 -1.09616040 -1.106392 -1.10548631 -1.1059655
 #> 
 #> Policy
 #>      s1      s2      s3      s4 
-#>  "down" "right"    "up"  "left" 
+#>  "down" "right"    "up" "right" 
 #> 
 #> Reward (last iteration)
-#> [1] -318
+#> [1] -263
 ```
 
 License

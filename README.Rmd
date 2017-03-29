@@ -36,18 +36,13 @@ The most important functions in **ReinforcementLearning** are:
 Using the **devtools** package, you can easily install the latest development version of **ReinforcementLearning** with
 
 ```{r,eval=FALSE}
-# install.packages("devtools")
+install.packages("devtools")
 
-# Option 1: download and install latest version from GitHub
+# Recommended option: download and install latest version from "GitHub"
 devtools::install_github("nproellochs/ReinforcementLearning")
-
-# Option 2: install directly from bundled archive
-devtoos::install_local("ReinforcementLearning_1.0.0.tar.gz")
 ```
 
 Notes: 
-
-* In the case of option 2, you have to specify the path either to the directory of **ReinforcementLearning** or to the bundled archive **ReinforcementLearning_1.0.0.tar.gz**
 
 * A CRAN version has not yet been released.
 
