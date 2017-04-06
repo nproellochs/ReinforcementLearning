@@ -10,8 +10,7 @@
 #' @return Character value defining the next action.
 #' @import hash
 #' @importFrom stats runif
-#' @references Sutton and Barto (1998). Reinforcement Learning: An Introduction, Adaptive
-#' Computation and Machine Learning, MIT Press, Cambridge, MA.
+#' @references Sutton and Barto (1998). "Reinforcement Learning: An Introduction", MIT Press, Cambridge, MA.
 #' @export
 epsilonGreedyActionSelection <- function(Q, state, epsilon) {
   if (runif(1) <= epsilon) {

@@ -14,7 +14,7 @@ Function that implements the specific learning rule.
 }
 \description{
 Decides upon a learning rule for reinforcement learning.
-Input is a name for the learning rule, output is the corresponding function object.
+Input is a name for the learning rule, while output is the corresponding function object.
 }
 \seealso{
 \code{\link{ReinforcementLearning}}

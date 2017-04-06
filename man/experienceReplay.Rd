@@ -21,13 +21,13 @@ Returns an object of class \code{hash} that contains the learned Q-table.
 }
 \description{
 Performs experience replay. Experience replay allows reinforcement learning agents to remember and reuse experiences from the past.
-The algorithm solely requires input data in the form of sample sequences consisting of states, actions and rewards.
-The result of the learning process is a state-action table Q that allows to infer the best possible action in each state.
+The algorithm requires input data in the form of sample sequences consisting of states, actions and rewards.
+The result of the learning process is a state-action table Q that allows one to infer the best possible action in each state.
 }
 \references{
-Lin (1992) Self-improving reactive agents based on reinforcement learning, planning and teaching. Machine Learning.
+Lin (1992). "Self-Improving Reactive Agents Based on Reinforcement Learning, Planning and Teaching", Machine Learning (8:3), pp. 293--321.
 
-Watkins (1992). Q-learning. Machine Learning.
+Watkins (1992). "Q-learning". Machine Learning (8:3), pp. 279--292.
 }
 \seealso{
 \code{\link{ReinforcementLearning}}

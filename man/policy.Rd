@@ -8,15 +8,15 @@ policy(x)
 }
 \arguments{
 \item{x}{Variable which encodes the behavior of the agent. This can be
-either a \code{matrix}, \code{data.frame} or a \code{\link{rl}} object.}
+either a \code{matrix}, \code{data.frame} or an \code{\link{rl}} object.}
 }
 \value{
 Returns the learned policy.
 }
 \description{
 Calculates reinforcement learning policy from a given state-action table Q.
-The policy is the decision making function of the agent and defines the learning
-agent's way of behaving at a given time.
+The policy is the decision-making function of the agent and defines the learning
+agent's behavior at a given time.
 }
 \seealso{
 \code{\link{ReinforcementLearning}}

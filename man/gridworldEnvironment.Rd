@@ -15,10 +15,10 @@ gridworldEnvironment(state, action)
 List containing the next state and the reward.
 }
 \description{
-Function defines an environment for a 2x2 gridworld example. Here, an agent is intended to
-navigate from an arbitrary start position to a goal position. The grid is surrounded by a wall
+Function defines an environment for a 2x2 gridworld example. Here an agent is intended to
+navigate from an arbitrary starting position to a goal position. The grid is surrounded by a wall,
 which makes it impossible for the agent to move off the grid. In addition, the agent faces a wall between s1 and s4.
-If the agent reaches the goal position, it earns a reward of 10. Crossing each square of the grid leads
-to a negative reward of -1.
+If the agent reaches the goal position, it earns a reward of 10. Crossing each square of the grid results in
+a negative reward of -1.
 }
 

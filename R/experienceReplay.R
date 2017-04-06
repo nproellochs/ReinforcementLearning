@@ -1,8 +1,8 @@
 #' Performs experience replay
 #'
 #' Performs experience replay. Experience replay allows reinforcement learning agents to remember and reuse experiences from the past.
-#' The algorithm solely requires input data in the form of sample sequences consisting of states, actions and rewards.
-#' The result of the learning process is a state-action table Q that allows to infer the best possible action in each state.
+#' The algorithm requires input data in the form of sample sequences consisting of states, actions and rewards.
+#' The result of the learning process is a state-action table Q that allows one to infer the best possible action in each state.
 #'
 #' @param D A \code{dataframe} containing the input data for reinforcement learning.
 #' Each row represents a state transition tuple \code{(s,a,r,s_new)}.
@@ -11,8 +11,8 @@
 #' @param ... Additional parameters passed to function.
 #' @return Returns an object of class \code{hash} that contains the learned Q-table.
 #' @seealso \code{\link{ReinforcementLearning}}
-#' @references Lin (1992) Self-improving reactive agents based on reinforcement learning, planning and teaching. Machine Learning.
-#' @references Watkins (1992). Q-learning. Machine Learning.
+#' @references Lin (1992). "Self-Improving Reactive Agents Based on Reinforcement Learning, Planning and Teaching", Machine Learning (8:3), pp. 293--321.
+#' @references Watkins (1992). "Q-learning". Machine Learning (8:3), pp. 279--292.
 #' @import hash
 #' @export
 experienceReplay <- function(D, Q, control, ...) {

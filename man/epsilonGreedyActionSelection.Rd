@@ -22,7 +22,6 @@ by selecting an action at random with probability \eqn{\varepsilon}. Alternative
 current knowledge by choosing the optimal action with probability \eqn{1-\varepsilon}.
 }
 \references{
-Sutton and Barto (1998). Reinforcement Learning: An Introduction, Adaptive
-Computation and Machine Learning, MIT Press, Cambridge, MA.
+Sutton and Barto (1998). "Reinforcement Learning: An Introduction", MIT Press, Cambridge, MA.
 }
 
