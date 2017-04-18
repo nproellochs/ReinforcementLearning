@@ -37,4 +37,3 @@ Function uses an environment function to generate sample experience in the form 
 
 \code{\link{ReinforcementLearning}}
 }
-

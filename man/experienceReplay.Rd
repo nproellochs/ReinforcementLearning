@@ -32,4 +32,3 @@ Watkins (1992). "Q-learning". Machine Learning (8:3), pp. 279--292.
 \seealso{
 \code{\link{ReinforcementLearning}}
 }
-

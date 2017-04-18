@@ -55,4 +55,3 @@ data <- sampleExperience(N = 1000, env = env, states = states, actions = actions
 
 \code{\link{gridworldEnvironment}}
 }
-

@@ -15,4 +15,3 @@ Function that implements the specific learning rule.
 \description{
 Input is a name for the action selection, output is the corresponding function object.
 }
-
