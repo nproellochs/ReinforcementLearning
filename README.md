@@ -3,7 +3,8 @@
 Reinforcement Learning
 ======================
 
-[![Build Status](https://travis-ci.org/nproellochs/ReinforcementLearning.svg?branch=master)](https://travis-ci.org/nproellochs/ReinforcementLearning) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/ReinforcementLEarning)](https://cran.r-project.org/package=ReinforcementLearning)
+[![Build Status](https://travis-ci.org/nproellochs/ReinforcementLearning.svg?branch=master)](https://travis-ci.org/nproellochs/ReinforcementLearning)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/ReinforcementLearning)](https://cran.r-project.org/package=ReinforcementLearning)
 
 **ReinforcementLearning** performs model-free reinforcement learning in R. This implementation enables the learning of an optimal policy based on sample sequences consisting of states, actions and rewards. In addition, it supplies multiple predefined reinforcement learning algorithms, such as experience replay.
 
