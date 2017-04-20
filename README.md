@@ -3,7 +3,7 @@
 Reinforcement Learning
 ======================
 
-[![Build Status](https://travis-ci.org/nproellochs/ReinforcementLearning.svg?branch=master)](https://travis-ci.org/nproellochs/ReinforcementLearning) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/ReinforcementLEarning)](https://cran.r-project.org/package=ReinforcementLearning)
+[![Build Status](https://travis-ci.org/nproellochs/ReinforcementLearning.svg?branch=master)](https://travis-ci.org/nproellochs/ReinforcementLearning) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/ReinforcementLearning)](https://cran.r-project.org/package=ReinforcementLearning)
 
 **ReinforcementLearning** performs model-free reinforcement learning in R. This implementation enables the learning of an optimal policy based on sample sequences consisting of states, actions and rewards. In addition, it supplies multiple predefined reinforcement learning algorithms, such as experience replay.
 
@@ -19,18 +19,16 @@ The most important functions of **ReinforcementLearning** are:
 Installation
 ------------
 
-Using the **devtools** package, you can easily install the latest development version of **ReinforcementLearning** with
+You can easily install the latest version of **ReinforcementLearning** with
 
 ``` r
-install.packages("devtools")
+# Recommended option: download and install latest version from CRAN
+install.packages("ReinforcementLearning")
 
-# Recommended option: download and install latest version from "GitHub"
+# Alternatively, install the development version from GitHub:
+# install.packages("devtools")
 devtools::install_github("nproellochs/ReinforcementLearning")
 ```
-
-Notes:
-
--   A CRAN version has not yet been released.
 
 Usage
 -----

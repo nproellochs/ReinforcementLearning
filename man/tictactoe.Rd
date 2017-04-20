@@ -20,4 +20,3 @@ The player who succeeds in placing three of their marks in a horizontal, vertica
 All states are observed from the perspective of player X, who is also assumed to have played first.
 }
 \keyword{datasets}
-

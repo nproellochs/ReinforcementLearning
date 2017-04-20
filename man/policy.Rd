@@ -21,4 +21,3 @@ agent's behavior at a given time.
 \seealso{
 \code{\link{ReinforcementLearning}}
 }
-

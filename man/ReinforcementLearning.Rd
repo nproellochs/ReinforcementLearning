@@ -73,4 +73,3 @@ plot(model)
 Sutton and Barto (1998). Reinforcement Learning: An Introduction, Adaptive
 Computation and Machine Learning, MIT Press, Cambridge, MA.
 }
-

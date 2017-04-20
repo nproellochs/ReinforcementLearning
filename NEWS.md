@@ -1,3 +1,3 @@
-# ReinforcementLearning 0.2
+# ReinforcementLearning 1.0.0
 
 * First release.

@@ -24,4 +24,3 @@ current knowledge by choosing the optimal action with probability \eqn{1-\vareps
 \references{
 Sutton and Barto (1998). "Reinforcement Learning: An Introduction", MIT Press, Cambridge, MA.
 }
-

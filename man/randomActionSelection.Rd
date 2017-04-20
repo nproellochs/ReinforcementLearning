@@ -19,4 +19,3 @@ Character value defining the next action.
 \description{
 Performs random action selection. In this strategy, the agent always selects an action at random.
 }
-

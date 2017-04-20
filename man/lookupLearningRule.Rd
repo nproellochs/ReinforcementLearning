@@ -19,4 +19,3 @@ Input is a name for the learning rule, while output is the corresponding functio
 \seealso{
 \code{\link{ReinforcementLearning}}
 }
-

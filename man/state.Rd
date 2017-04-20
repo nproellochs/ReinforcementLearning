@@ -17,4 +17,3 @@ Character value defining the state representation of the given object.
 \description{
 Converts object of any class to a reinforcement learning state of type character.
 }
-
