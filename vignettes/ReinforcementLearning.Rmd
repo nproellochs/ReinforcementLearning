@@ -150,7 +150,7 @@ policy(model)
 
 ## Updating an existing policy
 
-Specifying an environment function to model the dynamics of the environment allows one to easily validate the performance of the agent. In order to do this, one simply applies the learned policy to newly generated samples. For this purpose, the `ReinforcementLearning` package comes with an additional predefined action selection mode, namely 'epsilon-greedy'. In this strategy, the agent explores the environment by selecting an action at random with probability $1-\epsilon$. Alternatively, the agent exploits its current knowledge by choosing the optimal action with probability $1-\epsilon$. 
+Specifying an environment function to model the dynamics of the environment allows one to easily validate the performance of the agent. In order to do this, one simply applies the learned policy to newly generated samples. For this purpose, the `ReinforcementLearning` package comes with an additional predefined action selection mode, namely 'epsilon-greedy'. In this strategy, the agent explores the environment by selecting an action at random with probability $\epsilon$. Alternatively, the agent exploits its current knowledge by choosing the optimal action with probability $1-\epsilon$. 
 
 The following example shows how to sample new experience from an existing policy using 'epsilon-greedy' action selection. The result is new state transition samples ('data_new') with significantly higher rewards compared to the the original sample ('data').
 
