@@ -72,7 +72,7 @@ ReinforcementLearning <- function(data, s = "s", a = "a", r = "r", s_new = "s_ne
   if(!is.data.frame(data)) {
     stop("Argument 'data' must of type 'data.frame'.")
   }
-  if(is.tbl(data)) {
+  if("tbl" %in% class(data)) {
     data <- as.data.frame(data)
   }
   if(!(is.character(s) && is.character(a) && is.character(r) && is.character(s_new))) {
@@ -88,6 +88,7 @@ ReinforcementLearning <- function(data, s = "s", a = "a", r = "r", s_new = "s_ne
       s_new = data[, s_new],
       stringsAsFactors = F
     )
+    colnames(d)
   }
   if(!(is.character(d$s) && is.character(d$a) && is.character(d$s_new) && is.numeric(d$r))) {
     stop("Input data invalid. States and actions must be of type 'character', while rewards must be of type 'numeric'.")
