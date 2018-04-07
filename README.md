@@ -82,4 +82,4 @@ License
 
 **ReinforcementLearning** is released under the [MIT License](https://opensource.org/licenses/MIT)
 
-Copyright (c) 2017 Nicolas Pröllochs & Stefan Feuerriegel
+Copyright (c) 2018 Nicolas Pröllochs & Stefan Feuerriegel
