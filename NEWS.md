@@ -1,3 +1,7 @@
-# ReinforcementLearning 1.0.0
+# ReinforcementLearning 1.0.1
 
-* First release.
+# Version 1.0.1
+
+## Changes
+
+* Fixed Tic-Tac-Toe example
