@@ -17,7 +17,7 @@ affiliations:
  - name: ETH Zurich
    index: 2
 date: 22 October 2018
-bibliography: proellochs-feuerriegel.bib
+bibliography: paper.bib
 output:
   html_document:
     keep_md: TRUE
