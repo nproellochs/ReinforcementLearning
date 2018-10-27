@@ -7,7 +7,7 @@ tags:
   - Experience Replay
   - Q-Learning
 authors:
-  - name: Nicolas Pr&ouml;llochs
+  - name: Nicolas Proellochs
     affiliation: "1, 2" # (Multiple affiliations must be quoted)
   - name: Stefan Feuerriegel
     affiliation: 2
