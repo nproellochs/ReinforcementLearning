@@ -1,8 +1,8 @@
 Package: ReinforcementLearning
 Type: Package
 Title: Model-Free Reinforcement Learning
-Version: 1.0.2
-Date: 2018-04-07
+Version: 1.0.3
+Date: 2019-03-12
 Authors@R: c(person("Nicolas", "Proellochs", email="nicolas.proellochs@is.uni-freiburg.de",
                     role=c("aut", "cre")),
              person("Stefan", "Feuerriegel", email="sfeuerriegel@ethz.ch",
@@ -23,5 +23,5 @@ Suggests:
     knitr,
     rmarkdown
 LazyData: TRUE
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 VignetteBuilder: knitr

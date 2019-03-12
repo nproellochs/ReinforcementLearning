@@ -2,6 +2,7 @@ library(ReinforcementLearning)
 context("experienceReplay")
 
 test_that("Experience replay performs correctly", {
+  suppressWarnings(RNGversion("3.5.0"))
   set.seed(0)
   data <- sampleGridSequence(50)
 

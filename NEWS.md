@@ -1,3 +1,11 @@
+# ReinforcementLearning 1.0.3
+
+# Version 1.0.3
+
+## Changes
+
+* Fixed sampler for R 3.5.x
+
 # ReinforcementLearning 1.0.2
 
 # Version 1.0.2

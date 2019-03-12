@@ -2,6 +2,7 @@ library(ReinforcementLearning)
 context("ReinforcementLearning")
 
 test_that("Reinforcement learning performs correctly", {
+  suppressWarnings(RNGversion("3.5.0"))
   set.seed(0)
   data <- sampleGridSequence(1000)
   control <- list(alpha = 0.1, gamma = 0.1, epsilon = 0.1)
@@ -31,6 +32,7 @@ test_that("Reinforcement learning performs correctly", {
 })
 
 test_that("Policy updating performs correctly", {
+  suppressWarnings(RNGversion("3.5.0"))
   set.seed(0)
   data <- sampleGridSequence(1000)
   control <- list(alpha = 0.1, gamma = 0.1, epsilon = 0.1)
