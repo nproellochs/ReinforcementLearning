@@ -66,7 +66,7 @@ ReinforcementLearning <- function(data, s = "s", a = "a", r = "r", s_new = "s_ne
   if (is.null(control$alpha) || is.null(control$gamma) || !is.numeric(control$alpha) || !is.numeric(control$gamma)) {
     stop("Missing or invalid control parameters.")
   }
-  if (control > 1 || control < 0) {
+  if (any(control > 1) || any(control < 0)) {
     stop("Control parameter values must be between 0 and 1.")
   }
   if(!is.data.frame(data)) {
@@ -92,6 +92,9 @@ ReinforcementLearning <- function(data, s = "s", a = "a", r = "r", s_new = "s_ne
   }
   if(!(is.character(d$s) && is.character(d$a) && is.character(d$s_new) && is.numeric(d$r))) {
     stop("Input data invalid. States and actions must be of type 'character', while rewards must be of type 'numeric'.")
+  }
+  if(any(is.na(d$r))) {
+    stop("Input data invalid. Reward column contains NA values.")
   }
   if (is.null(model)) {
     Q <- hash()

@@ -4,7 +4,7 @@
 
 ## Changes
 
-* Fixed sampler for R 3.5.x
+* Set `RNGversion()` due to changes to sampling mechanism
 
 # ReinforcementLearning 1.0.2
 

@@ -2,7 +2,6 @@ library(ReinforcementLearning)
 context("ReinforcementLearning")
 
 test_that("Reinforcement learning performs correctly", {
-  suppressWarnings(RNGversion("3.5.0"))
   set.seed(0)
   data <- sampleGridSequence(1000)
   control <- list(alpha = 0.1, gamma = 0.1, epsilon = 0.1)
@@ -29,10 +28,14 @@ test_that("Reinforcement learning performs correctly", {
                                      s_new = "NextState", iter = 2.4))
   expect_error(ReinforcementLearning(data, s = "State", a = "Action", r = "Reward",
                                      s_new = "NextState", iter = -1))
+
+  data_na <- data
+  data_na$Reward[1] <- NA
+  expect_error(ReinforcementLearning(data_na, s = "State", a = "Action", r = "Reward",
+                                     s_new = "NextState", control = control))
 })
 
 test_that("Policy updating performs correctly", {
-  suppressWarnings(RNGversion("3.5.0"))
   set.seed(0)
   data <- sampleGridSequence(1000)
   control <- list(alpha = 0.1, gamma = 0.1, epsilon = 0.1)
