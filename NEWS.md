@@ -1,4 +1,12 @@
-# ReinforcementLearning 1.0.3
+# ReinforcementLearning 1.0.4
+
+# Version 1.0.4
+
+## Changes
+
+* Improved documentation
+* Improved function naming
+* Extended package vignette
 
 # Version 1.0.3
 

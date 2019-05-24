@@ -9,6 +9,17 @@
 #' @param state The current state.
 #' @param action Action to be executed.
 #' @return List containing the next state and the reward.
+#' @examples
+#' # Load gridworld environment
+#' gridworld <- gridworldEnvironment
+#'
+#' # Define state and action
+#' state <- "s1"
+#' action <- "down"
+#'
+#' # Observe next state and reward
+#' gridworld(state, action)
+#'
 #' @export
 gridworldEnvironment <- function(state, action) {
   next_state <- state

@@ -18,6 +18,14 @@ Computes reinforcement learning policy from a given state-action table Q.
 The policy is the decision-making function of the agent and defines the learning
 agent's behavior at a given time.
 }
+\examples{
+# Create exemplary state-action table (Q) with 2 actions and 3 states
+Q <- data.frame("up" = c(-1, 0, 1), "down" = c(-1, 1, 0))
+
+# Show best possible action in each state
+computePolicy(Q)
+
+}
 \seealso{
 \code{\link{ReinforcementLearning}}
 }

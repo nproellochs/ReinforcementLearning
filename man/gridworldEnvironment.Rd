@@ -21,3 +21,15 @@ which makes it impossible for the agent to move off the grid. In addition, the a
 If the agent reaches the goal position, it earns a reward of 10. Crossing each square of the grid results in
 a negative reward of -1.
 }
+\examples{
+# Load gridworld environment
+gridworld <- gridworldEnvironment
+
+# Define state and action
+state <- "s1"
+action <- "down"
+
+# Observe next state and reward
+gridworld(state, action)
+
+}

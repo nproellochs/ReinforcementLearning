@@ -8,6 +8,13 @@
 #' either a \code{matrix}, \code{data.frame} or an \code{\link{rl}} object.
 #' @seealso \code{\link{ReinforcementLearning}}
 #' @return Returns the learned policy.
+#' @examples
+#' # Create exemplary state-action table (Q) with 2 actions and 3 states
+#' Q <- data.frame("up" = c(-1, 0, 1), "down" = c(-1, 1, 0))
+#'
+#' # Show best possible action in each state
+#' computePolicy(Q)
+#'
 #' @rdname computePolicy
 #' @export
 computePolicy <- function(x) {
