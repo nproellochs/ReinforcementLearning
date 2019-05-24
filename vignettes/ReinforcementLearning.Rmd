@@ -13,7 +13,7 @@ vignette: >
 set.seed(0)
 ```
 
-This vignette gives a introduction to the `ReinforcementLearning` package, which allows one to perform model-free reinforcement in *R*. The implementation uses input data in the form of sample sequences consisting of states, actions and rewards. Based on such training examples, the package allows a reinforcement learning agent to learn an optimal policy that defines the best possible action in each state. In the following sections, we present multiple step-by-step examples to illustrate how to take advantage of the capabilities of the `ReinforcementLearning` package. Moreover, we present methods to customize the learning and action selection behavior of the agent. Main features of `ReinforcementLearning` include, but are not limited to,
+This vignette gives a introduction to the `ReinforcementLearning` package, which allows one to perform model-free reinforcement in *R*. The implementation uses input data in the form of sample sequences consisting of states, actions and rewards. Based on such training examples, the package allows a reinforcement learning agent to learn an optimal policy that defines the best possible action in each state. In the following sections, we present multiple step-by-step examples to illustrate how to take advantage of the capabilities of the `ReinforcementLearning` package. Moreover, we present methods to customize the learning and action selection behavior of the agent. Main features of `ReinforcementLearning` include, but are not limited to:
 
 - Learning an optimal policy from a fixed set of a priori known transition samples
 - Predefined learning rules and action selection modes
@@ -65,7 +65,6 @@ library(ReinforcementLearning)
 
 The following sections present the usage and main functionality of the `ReinforcementLearning` package.
 
-
 ## Data preparation
 
 The `ReinforcementLearning` package utilizes different mechanisms for reinforcement learning, including Q-learning and experience replay. It thereby learns an optimal policy based on past experience in the form of sample sequences consisting of states, actions and rewards. Consequently, each training example consists of a state-transition tuple $(s_i, a_i, r_{i+1}, s_{i+1})$ as follows:
@@ -82,7 +81,6 @@ The training examples for reinforcement learning can (1)&nbsp;be collected from 
 This approach is beneficial when the input data is pre-determined or one wants to train an agent that replicates past behavior. In this case, one merely needs to insert a tabular data structure with past observations into the package. This might be the case when the state-transition tuples have been collected from an external source, such as sensor data, and one wants to learn an agent by eliminating further interaction with the environment. 
 
 \textbf{Example.} The following example shows the first five observations of a representative dataset containing game states of randomly sampled tic-tac-toe games\footnote{The tic-tac-toe dataset contains game states of 406,541 randomly-sampled tic-tac-toe games and is included in the `ReinforcementLearning` R package. All states are observed from the perspective of player X who is also assumed to have played first. The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row wins the game. Reward for player X is +1 for 'win', 0 for 'draw', and -1 for 'loss'.}. In this dataset, the first column contains a representation of the current board state in a match. The second column denotes the observed action of player X in this state, whereas the third column contains a representation of the resulting board state after performing the action. The fourth column specifies the resulting reward for player X. This dataset is thus sufficient as input for learning the agent.
-
 
 ```{r}
 data("tictactoe")
@@ -123,7 +121,7 @@ data <- sampleExperience(N = 1000,
 
 The routine \code{ReinforcementLearning()} bundles the main functionality, which teaches a reinforcement learning agent using the previous input data. For this purpose, it requires the following arguments: (1)&nbsp;A *data* argument that must be a data frame object in which each row represents a state transition tuple $(s_i, a_i, r_{i+1}, s_{i+1})$. (2)&nbsp;The user is required to specify the column names of the individual tuple elements within *data*. 
 
-The following pseudocode demonstrates the usage for pre-defined data from an external source, while Section&nbsp;\ref{illustrative-example} details the interactive setup. Here the parameters *s*, *a*, *r* and *s_new* contain strings specifying the corresponding column names in the data frame *data*.
+The following pseudocode demonstrates the usage for pre-defined data from an external source, while the subsequent sections detail the interactive setup. Here the parameters *s*, *a*, *r* and *s_new* contain strings specifying the corresponding column names in the data frame *data*.
 
 ```{r, eval=FALSE}
 # Load dataset
@@ -138,7 +136,6 @@ model <- ReinforcementLearning(data = tictactoe,
                                iter = 1)
 
 ```
-
 
 ### Parameter configuration
 
@@ -174,21 +171,19 @@ print(model)
 summary(model)
 ```
 
-
 # Working example 1: Gridworld
 
 This section demonstrates the capabilities of the `ReinforcementLearning` package with the help of a practical example.  
 
 ## Problem definition
 
-Our practical example aims at teaching optimal movements to a robot in a grid-shaped maze \citep{Sutton.1998}. Here the agent must navigate from a random starting position to a final position on a simulated $2 \times 2$ grid (see figure below). Each cell on the grid reflects one state, yielding a total of 4 different states. In each state, the agent can perform one out of four possible actions, i.e. to move up, down, left, or right, with the only restriction being that it must remain on the grid. In other words, the grid is surrounded by a wall, which makes it impossible for the agent to move off the grid. A wall between *s1* and *s4* hinders direct movements between these states. Finally, the reward structures is as follows: each movement leads to a negative reward of -1 in order to penalize routes that are not the shortest path. If the agent reaches the goal position, it earns a reward of 10.
-
+Our practical example aims at teaching optimal movements to a robot in a grid-shaped maze (adapted from [Sutton
+    (1998)](https://www.semanticscholar.org/paper/Reinforcement-Learning%3A-An-Introduction-Sutton-Barto/dd90dee12840f4e700d8146fb111dbc863a938ad). Here the agent must navigate from a random starting position to a final position on a simulated $2 \times 2$ grid (see figure below). Each cell on the grid reflects one state, yielding a total of 4 different states. In each state, the agent can perform one out of four possible actions, i.e. to move up, down, left, or right, with the only restriction being that it must remain on the grid. In other words, the grid is surrounded by a wall, which makes it impossible for the agent to move off the grid. A wall between *s1* and *s4* hinders direct movements between these states. Finally, the reward structures is as follows: each movement leads to a negative reward of -1 in order to penalize routes that are not the shortest path. If the agent reaches the goal position, it earns a reward of 10.
 
 |-----------|  
 |  s1  |  s4  |   
 |  s2  &nbsp;  s3  |   
 |-----------|  
-
 
 ## Defining an environment function
 
@@ -202,13 +197,11 @@ actions <- c("up", "down", "left", "right")
 
 We then rewrite the above problem formulation into the following environment function. As previously mentioned, this function must take a state and an action as input. The if-conditions determine the current combination of state and action. In our example, the state refers to the agent's position on the grid and the action denotes the intended movement. Based on these, the function decides upon the next state and a numeric reward. These together are returned as a list.  
 
-
 ```{r, message=FALSE}
 # Load built-in environment function for 2x2 gridworld 
 env <- gridworldEnvironment
 print(env)
 ```
-
 
 ## Learning an optimal policy
 
@@ -260,7 +253,6 @@ summary(model)
 
 ```
 
-
 ## Applying a policy to unseen data
 
 We now apply an existing policy to unseen data in order to evaluate the out-of-sample performance of the agent. The following example demonstrates how to sample new data points from an existing policy. The result yields a column with the best possible action for each given state.
@@ -279,7 +271,6 @@ data_unseen
 ## Updating an existing policy
 
 Finally, one can update an existing policy with new observational data. This is beneficial when, for instance, additional data points become available or when one wants to plot the reward as a function of the number of training samples. For this purpose, the `ReinforcementLearning()` function can take an existing `rl` model as an additional input parameter. Moreover, it comes with an additional pre-defined action selection mode, namely $\varepsilon$-greedy, thereby following the best action with probability $1 - \varepsilon$ and a random one with $\varepsilon$.
-
 
 ```{r, message=FALSE}
 # Sample N = 1000 sequences from the environment
@@ -312,14 +303,14 @@ print(model_new)
 plot(model_new)
 ```
 
-
 # Working example 2: Tic-Tac-Toe
 
 This section demonstrates the capabilities of the `ReinforcementLearning` package when using state-transition tuples from an external source without the need for modeling the dynamics of the environment.
 
 ## Problem definition
 
-The following example utilizes the aforementioned dataset containing 406,541 game states of Tic-Tac-Toe to learn the optimal actions for each state of the board. All states are observed from the perspective of player X who is also assumed to have played first. The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row wins the game. Reward for player X is +1 for 'win', 0 for 'draw', and -1 for 'loss'.}. 
+The following example utilizes the aforementioned dataset containing 406,541 game states of Tic-Tac-Toe to learn the optimal actions for each state of the board (adapted from [Sutton
+    (1998)](https://www.semanticscholar.org/paper/Reinforcement-Learning%3A-An-Introduction-Sutton-Barto/dd90dee12840f4e700d8146fb111dbc863a938ad). All states are observed from the perspective of player X who is also assumed to have played first. The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row wins the game. Reward for player X is +1 for 'win', 0 for 'draw', and -1 for 'loss'.}. 
 
 The current state of the board is represented by a rowwise concatenation of the players' marks in a 3x3 grid. For example, "......X.B" denotes a board state in which player X has placed a mark in the first field of the third column whereas player B has placed a mark in the third field of the third column (see visualization below). 
 
@@ -346,8 +337,7 @@ control <- list(alpha = 0.2, gamma = 0.4, epsilon = 0.1)
 # Perform reinforcement learning
 model <- ReinforcementLearning(tictactoe, s = "State", a = "Action", r = "Reward", 
                                s_new = "NextState", iter = 1, control = control)
-```
-```{r, eval=FALSE}
+
 # Calculate optimal policy
 pol <- computePolicy(model)
 
@@ -364,7 +354,6 @@ cat('.XXBB..XB XXBB.B.X. .XBB..BXX BXX...B.. ..XB..... XBXBXB...
 
 The `ReinforcementLearning()` function returns an `rl` object. Subsequently, evoking `computePolicy(model)` returns a named vector which allows one to display the policy that defines the best possible action in each state. Here, the names represent the state names (representation of the current board in a match) while the values denote the optimal action. For example, in state ".XXBB..XB" (see first grid below), the optimal action for the agent is to place a mark in "c1". 
 
-
 ```{r, message=FALSE, echo=FALSE}
 cat("|  .  |  X  |  X   |
 |------------------|
@@ -380,17 +369,16 @@ cat("|  c1  |  c2  |  c3   |
 
 ```
 
-
 # Notes on performance
 
-Q-learning is guaranteed to converge to an optimal policy. However, the method is computationally demanding as it relies on continuous interactions between an agent and its environment. To remedy this, the `ReinforcementLearning` package allows users to perform batch reinforcement learning. In most scenarios, this reinforcement learning variant benefits computational performance as it mitigates the ‘exploration overhead’ problem in pure online learning. In combination with experience replay, it speeds up convergence by collecting and replaying observed state transitions repeatedly to the agent as if they were new observations collected while interacting with the system. Nonetheless, due to the fact that the package is written purely in R, the applicability of the package to very large scale problems (such as applications from computer vision) is still limited. In the following, we briefly outline things the package can do and situtations in which one should consider utilizing reinforcement learning implementations written in "faster" programming languages such as C++.
+Q-learning is guaranteed to converge to an optimal policy. However, the method is computationally demanding as it relies on continuous interactions between an agent and its environment. To remedy this, the `ReinforcementLearning` package allows users to perform batch reinforcement learning. In most scenarios, this reinforcement learning variant benefits computational performance as it mitigates the ‘exploration overhead’ problem in pure online learning. In combination with experience replay, it speeds up convergence by collecting and replaying observed state transitions repeatedly to the agent as if they were new observations collected while interacting with the system. Nonetheless, due to the fact that the package is written purely in R, the applicability of the package to very large scale problems (such as applications from computer vision) is still limited. In the following, we briefly outline things the package can do and situtations in which one should consider utilizing reinforcement learning implementations written in "faster" programming languages.
 
 What the `ReinforcementLearning` R package can do:
 
 * Learning optimal strategies for real-world problems with limited state and action sets (e.g. finding optimal strategies for simple games, training a simple stock market trading agent, learning polarity labels in applications from natural language processing).
 * The packages allows one to speed up performance by adjusting learning parameters and making use of experience replay.
 * The package allows one to train an agent from pre-defined observations without the need for modeling the dynamics of the environment. Typically, this approach drastically speeds up convergence and can be useful in situations in which the state-transition tuples have been collected from an external source, such as sensor data.
-* The package provides a highly customizable framework for model-free reinforcement learning tasks in which the functionality can easily be extended. For example, users may attempt to speed up performance by defining alternative reinforcement learning algorithms and integrating them into package code.
+* The package provides a highly customizable framework for model-free reinforcement learning tasks in which the functionality can easily be extended. For example, users may attempt to speed up performance by defining alternative reinforcement learning algorithms and integrating them into the package code.
 
 What the `ReinforcementLearning` R package cannot do:
 
