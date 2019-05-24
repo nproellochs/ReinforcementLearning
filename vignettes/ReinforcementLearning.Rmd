@@ -337,15 +337,10 @@ Notes:
 * All states are observed from the perspective of player X, who is also assumed to have played first.
 * The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row wins the game. Reward for player X is +1 for 'win', 0 for 'draw', and -1 for 'loss'.
 
+
 # Notes on Performance
 
-Finally, a comparison of the speed at which both the sf and areal packages calculated these values is included in the appendix as well. For the extensive interpolations, aw_interpolate() performed 28 milliseconds slower on the sample data provided in the package, with a mean execution time of 279.429 milliseconds. Similarly, the intensive interpolations were 20 milliseconds slower when using areal, which had a mean execution time of 267.878 milliseconds. Both comparisons were made using the R package microbenchmark.
-
-One particular performance concern to note are intersections (a step in the interpolation process) that return geometry collections. These will cause st_interpolate_aw() function from sf to error. The aw_interpolate() function will not error, but instead will correctly address these geometry collections before proceeding with the interpolation. However, the correction process can take significantly longer than it would a similarly sized data set that does not require this additional step.
-
-The appendix also contains an example of interpolating population from Missouri's 115 counties into its 4,506 Census block groups. When evaluated with microbenchmark, the average length of time to complete this process was 17.689 seconds.
-
-Implementing reinforcement learning is programmatically challenging, since it relies on continuous interactions between an agent and its environment. To remedy this, we introduce the \pkg{ReinforcementLearning} package for R, which allows an agent to learn from states, actions and rewards. The result of the learning process is a policy that defines the best possible action in each state. The package is highly flexible and incorporates a variety of learning parameters, as well as substantial performance improvements such as experience replay.
+TBC
 
 # License
 
