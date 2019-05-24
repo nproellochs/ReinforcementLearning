@@ -338,7 +338,7 @@ Notes:
 * The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row wins the game. Reward for player X is +1 for 'win', 0 for 'draw', and -1 for 'loss'.
 
 
-# Notes on Performance
+# Notes on performance
 
 TBC
 
