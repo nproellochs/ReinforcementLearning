@@ -1,6 +1,6 @@
 ---
 title: "Reinforcement Learning in R"
-author: "Nicolas Proellochs"
+author: "Nicolas Pröllochs"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -68,7 +68,7 @@ The following sections present the usage and main functionality of the `Reinforc
 
 ## Data preparation
 
-The \pkg{ReinforcementLearning} package utilizes different mechanisms for reinforcement learning, including Q-learning and experience replay. It thereby learns an optimal policy based on past experience in the form of sample sequences consisting of states, actions and rewards. Consequently, each training example consists of a state-transition tuple $(s_i, a_i, r_{i+1}, s_{i+1})$ as follows:
+The `ReinforcementLearning` package utilizes different mechanisms for reinforcement learning, including Q-learning and experience replay. It thereby learns an optimal policy based on past experience in the form of sample sequences consisting of states, actions and rewards. Consequently, each training example consists of a state-transition tuple $(s_i, a_i, r_{i+1}, s_{i+1})$ as follows:
 
 * $s_i$ is the current environment state.
 * $a_i$ denotes the selected action in the current state.
@@ -81,7 +81,7 @@ The training examples for reinforcement learning can (1)&nbsp;be collected from 
 
 This approach is beneficial when the input data is pre-determined or one wants to train an agent that replicates past behavior. In this case, one merely needs to insert a tabular data structure with past observations into the package. This might be the case when the state-transition tuples have been collected from an external source, such as sensor data, and one wants to learn an agent by eliminating further interaction with the environment. 
 
-\textbf{Example.} The following example shows the first five observations of a representative dataset containing game states of randomly sampled tic-tac-toe games\footnote{The tic-tac-toe dataset contains game states of 406,541 randomly-sampled tic-tac-toe games and is included in the \pkg{ReinforcementLearning} R package. All states are observed from the perspective of player X who is also assumed to have played first. The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row wins the game. Reward for player X is +1 for 'win', 0 for 'draw', and -1 for 'loss'.}. In this dataset, the first column contains a representation of the current board state in a match. The second column denotes the observed action of player X in this state, whereas the third column contains a representation of the resulting board state after performing the action. The fourth column specifies the resulting reward for player X. This dataset is thus sufficient as input for learning the agent.
+\textbf{Example.} The following example shows the first five observations of a representative dataset containing game states of randomly sampled tic-tac-toe games\footnote{The tic-tac-toe dataset contains game states of 406,541 randomly-sampled tic-tac-toe games and is included in the `ReinforcementLearning` R package. All states are observed from the perspective of player X who is also assumed to have played first. The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row wins the game. Reward for player X is +1 for 'win', 0 for 'draw', and -1 for 'loss'.}. In this dataset, the first column contains a representation of the current board state in a match. The second column denotes the observed action of player X in this state, whereas the third column contains a representation of the resulting board state after performing the action. The fourth column specifies the resulting reward for player X. This dataset is thus sufficient as input for learning the agent.
 
 
 ```{r}
@@ -149,7 +149,7 @@ Several parameters can be provided to \code{ReinforcementLearning()}  in order t
 * **epsilon** Exploration parameter, set between 0 and 1. Defines the exploration mechanism in $\varepsilon$-greedy action selection. In this strategy, the agent explores the environment by selecting an action at random with probability $\varepsilon$. Alternatively, the agent exploits its current knowledge by choosing the optimal action with probability $1-\varepsilon$. This parameter is only required for sampling new experience based on an existing policy. 
 * **iter** Number of repeated learning iterations the agent passes through the training dataset. Iter is an integer greater than 0. The default is set to 1 in which each state transition tuple is presented to the agent only once. Depending on the size of the training data, a higher number of repeated learning iterations can improve convergence but requires longer computation time. This parameter is passed directly to \code{ReinforcementLearning()}.
 
-The learning parameters **alpha**, **gamma**, and **epsilon** must be provided in an optional **control** object passed to the \code{ReinforcementLearning()} function. 
+The learning parameters **alpha**, **gamma**, and **epsilon** must be provided in an optional **control** object passed to the `ReinforcementLearning()` function. 
 
 ```{r, eval=FALSE}
 # Define control object
@@ -161,7 +161,7 @@ model <- ReinforcementLearning(data, iter = 10, control = control)
 
 ## Diagnostics
 
-The result of the learning process is an object of type \code{"rl"} that contains the state-action table and an optimal policy with the best possible action in each state. The command \code{computePolicy(model)} shows the optimal policy, while \code{print(model)} outputs the state-action table, i.e. the Q-value of each state-action pair. In addition, \code{summary(model)} prints further model details and summary statistics.
+The result of the learning process is an object of type `rl` that contains the state-action table and an optimal policy with the best possible action in each state. The command `computePolicy(model)` shows the optimal policy, while `print(model)` outputs the state-action table, i.e. the Q-value of each state-action pair. In addition, `summary(model)` prints further model details and summary statistics.
 
 ```{r, eval=FALSE}
 # Print policy
@@ -177,7 +177,7 @@ summary(model)
 
 # Working example 1: Gridworld
 
-This section demonstrates the capabilities of the \pkg{ReinforcementLearning} package with the help of a practical example.  
+This section demonstrates the capabilities of the `ReinforcementLearning` package with the help of a practical example.  
 
 ## Problem definition
 
@@ -212,7 +212,7 @@ print(env)
 
 ## Learning an optimal policy
 
-After having specified the environment function, we can use the built-in \code{sampleExperience()} function to sample observation sequences from the environment. The following code snippet generates a data frame *data* containing 1000 random state-transition tuples $(s_i, a_i, r_{i+1}, s_{i+1})$. 
+After having specified the environment function, we can use the built-in `sampleExperience()` function to sample observation sequences from the environment. The following code snippet generates a data frame *data* containing 1000 random state-transition tuples $(s_i, a_i, r_{i+1}, s_{i+1})$. 
 
 ```{r, message=FALSE}
 # Sample N = 1000 random sequences from the environment
@@ -223,7 +223,7 @@ data <- sampleExperience(N = 1000,
 head(data)
 ```
 
-We can now use the observation sequence in *data* in order to learn the optimal behavior of the agent. For this purpose, we first customize the learning behavior of the agent by defining a control object. We follow the default parameter choices and set the learning rate *alpha* to 0.1, the discount factor *gamma* to 0.5 and the exploration greediness *epsilon* to 0.1. Subsequently, we use the \code{ReinforcementLearning()} function to learn the best possible policy for the the input data.
+We can now use the observation sequence in *data* in order to learn the optimal behavior of the agent. For this purpose, we first customize the learning behavior of the agent by defining a control object. We follow the default parameter choices and set the learning rate *alpha* to 0.1, the discount factor *gamma* to 0.5 and the exploration greediness *epsilon* to 0.1. Subsequently, we use the `ReinforcementLearning()` function to learn the best possible policy for the the input data.
 
 
 ```{r, message=FALSE}
@@ -242,7 +242,7 @@ model <- ReinforcementLearning(data,
 
 ## Evaluating policy learning
 
-The \code{ReinforcementLearning()} function returns an \code{"rl"} object. We can evoke \code{computePolicy(model)} in order to display the policy that defines the best possible action in each state. Alternatively, we can use \code{print(model)} in order to write the entire state-action table to the screen, i.e. the Q-value of each state-action pair. Evidently, the agent has learned the optimal policy that allows it to take the shortest path from an arbitrary starting position to the goal position *s4*.
+The `ReinforcementLearning()` function returns an `rl` object. We can evoke `computePolicy(model)` in order to display the policy that defines the best possible action in each state. Alternatively, we can use `print(model)` in order to write the entire state-action table to the screen, i.e. the Q-value of each state-action pair. Evidently, the agent has learned the optimal policy that allows it to take the shortest path from an arbitrary starting position to the goal position *s4*.
 
 ```{r, message=FALSE}
 # Print policy
@@ -252,7 +252,7 @@ computePolicy(model)
 print(model)
 ```
 
-Ultimately, we can use \code{summary(model)} to inspect the model further. This command outputs additional diagnostics regarding the model such as the number of states and actions. Moreover, it allows us to analyze the distribution of rewards. For instance, we see that the total reward in our sample (i.e. the sum of the rewards column $r$) is highly negative. This indicates that the random policy used to generate the state transition samples deviates from the optimal case. Hence, the next section explains how to apply and update a learned policy with new data samples.
+Ultimately, we can use `summary(model)` to inspect the model further. This command outputs additional diagnostics regarding the model such as the number of states and actions. Moreover, it allows us to analyze the distribution of rewards. For instance, we see that the total reward in our sample (i.e. the sum of the rewards column $r$) is highly negative. This indicates that the random policy used to generate the state transition samples deviates from the optimal case. Hence, the next section explains how to apply and update a learned policy with new data samples.
 
 ```{r, message=FALSE}
 # Print summary statistics
@@ -278,7 +278,7 @@ data_unseen
 
 ## Updating an existing policy
 
-Finally, one can update an existing policy with new observational data. This is beneficial when, for instance, additional data points become available or when one wants to plot the reward as a function of the number of training samples. For this purpose, the \code{ReinforcementLearning()} function can take an existing \code{"rl"} model as an additional input parameter. Moreover, it comes with an additional pre-defined action selection mode, namely $\varepsilon$-greedy, thereby following the best action with probability $1 - \varepsilon$ and a random one with $\varepsilon$.
+Finally, one can update an existing policy with new observational data. This is beneficial when, for instance, additional data points become available or when one wants to plot the reward as a function of the number of training samples. For this purpose, the `ReinforcementLearning()` function can take an existing `rl` model as an additional input parameter. Moreover, it comes with an additional pre-defined action selection mode, namely $\varepsilon$-greedy, thereby following the best action with probability $1 - \varepsilon$ and a random one with $\varepsilon$.
 
 
 ```{r, message=FALSE}
@@ -302,7 +302,7 @@ model_new <- ReinforcementLearning(data_new,
                                    model = model)
 ```
 
-The following code snippet shows that the updated policy yields significantly higher rewards as compared to the previous policy. These changes can also be visualized in a learning curve via \code{plot(model\_new)}.
+The following code snippet shows that the updated policy yields significantly higher rewards as compared to the previous policy. These changes can also be visualized in a learning curve via `plot(model\_new)`.
 
 ```{r, message=FALSE, fig.width=5, fig.height=3}
 # Print result
@@ -315,7 +315,26 @@ plot(model_new)
 
 # Working example 2: Tic-Tac-Toe
 
-The following example shows the use of `ReinforcementLearning` in an applied setting. More precisely, we utilize a dataset containing 406,541 game states of Tic-Tac-Toe to learn the optimal actions for each state of the board. 
+This section demonstrates the capabilities of the `ReinforcementLearning` package when using state-transition tuples from an external source without the need for modeling the dynamics of the environment.
+
+## Problem definition
+
+The following example utilizes the aforementioned dataset containing 406,541 game states of Tic-Tac-Toe to learn the optimal actions for each state of the board. All states are observed from the perspective of player X who is also assumed to have played first. The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row wins the game. Reward for player X is +1 for 'win', 0 for 'draw', and -1 for 'loss'.}. 
+
+The current state of the board is represented by a rowwise concatenation of the players' marks in a 3x3 grid. For example, "......X.B" denotes a board state in which player X has placed a mark in the first field of the third column whereas player B has placed a mark in the third field of the third column (see visualization below). 
+
+```{r, message=FALSE, echo=FALSE}
+cat("......X.B")
+
+cat("|  .  |  .  |  .   |
+|------------------|
+|  .  |  .  |  .   |
+|------------------|
+|  X  |  .  |   B  |")
+
+```
+
+The following code utilizes the dataset to learn the optimal actions for each state of the board. The computation time is 1-2 minutes on standard desktop computers. 
 
 ```{r, eval=FALSE}
 # Load dataset
@@ -327,29 +346,53 @@ control <- list(alpha = 0.2, gamma = 0.4, epsilon = 0.1)
 # Perform reinforcement learning
 model <- ReinforcementLearning(tictactoe, s = "State", a = "Action", r = "Reward", 
                                s_new = "NextState", iter = 1, control = control)
+```
+```{r, eval=FALSE}
+# Calculate optimal policy
+pol <- computePolicy(model)
 
-# Print optimal policy
-computePolicy(model)
+# Print policy
+head(pol)
+
 ```
 
-Notes: 
+```{r, message=FALSE, echo=FALSE}
+cat('.XXBB..XB XXBB.B.X. .XBB..BXX BXX...B.. ..XB..... XBXBXB... 
+     "c1"      "c5"      "c5"      "c4"      "c5"      "c9"')
 
-* All states are observed from the perspective of player X, who is also assumed to have played first.
-* The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row wins the game. Reward for player X is +1 for 'win', 0 for 'draw', and -1 for 'loss'.
+```
+
+The `ReinforcementLearning()` function returns an `rl` object. Subsequently, evoking `computePolicy(model)` returns a named vector which allows one to display the policy that defines the best possible action in each state. Here, the names represent the state names (representation of the current board in a match) while the values denote the optimal action. For example, in state ".XXBB..XB" (see first grid below), the optimal action for the agent is to place a mark in "c1". 
+
+
+```{r, message=FALSE, echo=FALSE}
+cat("|  .  |  X  |  X   |
+|------------------|
+|  B  |  B  |  .   |
+|------------------|
+|  .  |  X  |   B  |")
+
+cat("|  c1  |  c2  |  c3   |
+|---------------------|
+|  c4  |  c5  |  c6   |
+|---------------------|
+|  c7  |  c8  |   c9  |")
+
+```
 
 
 # Notes on performance
 
-Q-learning is guaranteed to converge to an optimal policy. However, the method is computationally demanding as it relies on continuous interactions between an agent and its environment. To remedy this, the \pkg{ReinforcementLearning} package allows users to perform batch reinforcement learning. In most scenarios, this reinforcement learning variant benefits computational performance as it mitigates the ‘exploration overhead’ problem in pure online learning. In combination with experience replay, it speeds up convergence by collecting and replaying observed state transitions repeatedly to the agent as if they were new observations collected while interacting with the system. Nonetheless, due to the fact that the package is written purely in R, the applicability of the package to very large scale problems (such as applications from computer vision) is still limited. In the following, we briefly outline things the package can do and situtations in which one should consider utilizing reinforcement learning implementations written in "faster" programming languages such as C++.
+Q-learning is guaranteed to converge to an optimal policy. However, the method is computationally demanding as it relies on continuous interactions between an agent and its environment. To remedy this, the `ReinforcementLearning` package allows users to perform batch reinforcement learning. In most scenarios, this reinforcement learning variant benefits computational performance as it mitigates the ‘exploration overhead’ problem in pure online learning. In combination with experience replay, it speeds up convergence by collecting and replaying observed state transitions repeatedly to the agent as if they were new observations collected while interacting with the system. Nonetheless, due to the fact that the package is written purely in R, the applicability of the package to very large scale problems (such as applications from computer vision) is still limited. In the following, we briefly outline things the package can do and situtations in which one should consider utilizing reinforcement learning implementations written in "faster" programming languages such as C++.
 
-What the ReinforcementLearning R package can do:
+What the `ReinforcementLearning` R package can do:
 
 * Learning optimal strategies for real-world problems with limited state and action sets (e.g. finding optimal strategies for simple games, training a simple stock market trading agent, learning polarity labels in applications from natural language processing).
 * The packages allows one to speed up performance by adjusting learning parameters and making use of experience replay.
 * The package allows one to train an agent from pre-defined observations without the need for modeling the dynamics of the environment. Typically, this approach drastically speeds up convergence and can be useful in situations in which the state-transition tuples have been collected from an external source, such as sensor data.
 * The package provides a highly customizable framework for model-free reinforcement learning tasks in which the functionality can easily be extended. For example, users may attempt to speed up performance by defining alternative reinforcement learning algorithms and integrating them into package code.
 
-What the ReinforcementLearning R package cannot do:
+What the `ReinforcementLearning` R package cannot do:
 
 * Solving large-scale problems with high-dimensional state-action spaces such as those from computer vision (users may consider reinforcement learning implementations written in "faster" programming languages)
 * Solving reinforcement learning problems requiring real-time interaction (e.g. real-time interaction with a robot)
