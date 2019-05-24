@@ -6,17 +6,14 @@ tags:
   - Batch Learning
   - Experience Replay
   - Q-Learning
-authors:
-  - name: Nicolas Proellochs
-    affiliation: "1, 2" # (Multiple affiliations must be quoted)
+author:
+  - name: Nicolas Pr&ouml;llochs
+    affiliation: University of Giessen, University of Oxford
+    email: \email{nicolas.proellochs@wi.jlug.de}
   - name: Stefan Feuerriegel
-    affiliation: 2
-affiliations:
- - name: University of Oxford
-   index: 1
- - name: ETH Zurich
-   index: 2
-date: 22 October 2018
+    affiliation: ETH Zurich
+    email: \email{sfeuerriegel@ethz.ch}
+date: 24 May 2019
 bibliography: paper.bib
 output:
   html_document:
@@ -25,9 +22,22 @@ output:
 
 # Summary
 
-Reinforcement learning refers to a group of methods from artificial intelligence where an agent performs learning through trial and error [@Sutton.1998]. It differs from supervised learning, since reinforcement learning requires no explicit labels; instead, the agent interacts continuously with its environment. That is, the agent starts in a specific state and then performs an action, based on which it transitions to a new state and, depending on the outcome, receives a reward. Different strategies (e.g. Q-learning) have been proposed to maximize the overall reward, resulting in a so-called policy, which defines the best possible action in each state. As a main advantage, reinforcement learning is applicable to situations in which the dynamics of the environment are unknown or too complex to evaluate [e.g. @Mnih.2015]. 
+Reinforcement learning refers to a group of methods from artificial intelligence where an agent performs learning through trial and error [@Sutton.1998]. It differs from supervised learning, since reinforcement learning requires no explicit labels; instead, the agent interacts continuously with its environment. That is, the agent starts in a specific state and then performs an action, based on which it transitions to a new state and, depending on the outcome, receives a reward. Different strategies (e.g. Q-learning) have been proposed to maximize the overall reward, resulting in a so-called policy, which defines the best possible action in each state. As a main advantage, reinforcement learning is applicable to situations in which the dynamics of the environment are unknown or too complex to evaluate [e.g. @Mnih.2015]. However, there is currently no package available for performing reinforcement learning in R. As a remedy, we introduce the *ReinforcementLearning* R package, which allows an agent to learn the optimal behavior based on sampling experience consisting of states, actions and rewards [@ReinforcementLearning.2017]. Based on such training examples, the package allows a reinforcement learning agent to learn an optimal policy that defines the best possible action in each state. Main features of `ReinforcementLearning` include, but are not limited to,
 
-However, the available tools in R are not yet living up to the needs of users in such cases. In fact, there is currently no package available that allows one to perform model-free reinforcement learning in R. Hence, users that aim to teach optimal behavior through trial-and-error learning must implement corresponding learning algorithms in a manual way. As a remedy, we introduce the *ReinforcementLearning* package for R, which allows an agent to learn the optimal behavior based on sampling experience consisting of states, actions and rewards [@ReinforcementLearning.2017]. The training examples for reinforcement learning can originate from real-world applications, such as sensor data. In addition, the package is shipped with the built-in capability to sample experience from a function that defines the dynamics of the environment. In both cases, the result of the learning process is a highly interpretable reinforcement learning policy that defines the best possible action in each state. The package provides a remarkably flexible framework, which makes it readily applicable to a wide range of different problems. 
+- Learning an optimal policy from a fixed set of a priori known transition samples
+- Predefined learning rules and action selection modes
+- A highly customizable framework for model-free reinforcement learning tasks
+
+# Statement of Need
+
+<!--Model-based RL / MDPs --> 
+Reinforcement learning techniques can primarily be categorized in two groups, namely, model-based and model-free approaches [@Sutton.1998]. The former, \emph{model-based} algorithms, rely on explicit models of the environment that fully describe the probabilities of state transitions, as well as the consequences of actions and the associated rewards. Specifically, corresponding algorithms are built upon explicit representations of the environment given in the form of Markov decision processes. These MDPs can be solved by various, well-known algorithms, including value iteration and policy iteration, in order to derive the optimal behavior of an agent. These algorithms are also implemented within the statistical software R. For instance, the package \pkg{MDPtoolbox} solves such models based on an explicit formalization of the MDP, i.e. settings in which the transition probabilities and reward functions are known a priori [@MDPtoolbox.2017].
+
+<!--Model-free RL --> 
+The second category of reinforcement learning comprises \emph{model-free} approaches that forgo any explicit knowledge regarding the dynamics of the environment. These approaches learn the optimal behavior through trial-and-error by directly interacting with the environment. In this context, the learner has no explicit knowledge of either the reward function or the state transition function [@Sutton.1998]. Instead, the optimal behavior is iteratively inferred from the consequences of actions on the basis of past experience. As a main advantage, this method is applicable to situations in which the dynamics of the environment are unknown or too complex to evaluate. However, the available tools in R are not yet living up to the needs of users in such cases. In fact, there is currently no package available that allows one to perform model-free reinforcement learning in R. Hence, users that aim to teach optimal behavior through trial-and-error learning must implement corresponding learning algorithms in a manual way.
+
+<!-- RL package --> 
+As a remedy, we introduce the \pkg{ReinforcementLearning} package for R, which allows an agent to learn the optimal behavior based on sampling experience consisting of states, actions and rewards  [@ReinforcementLearning.2017]. The training examples for reinforcement learning can originate from real-world applications, such as sensor data. In addition, the package is shipped with the built-in capability to sample experience from a function that defines the dynamics of the environment. In both cases, the result of the learning process is a highly interpretable reinforcement learning policy that defines the best possible action in each state. The package provides a remarkably flexible framework, which makes it readily applicable to a wide range of different problems. Among other functions, it allows one to customize a variety of learning parameters and elaborates on how to mitigate common performance in common solution algorithms (e.g. experience replay). The package vignette demostrates its use by drawing upon common examples from the literature (e.g. finding optimal game strategies).
 
 # Functionality
 
@@ -53,5 +63,9 @@ environment <- function(state, action) {
 ```
 
 After specifying the environment function, one can use *sampleExperience()* to collect random sequences from it. Thereby, the input specifies number of samples ($N$), the environment function, the set of states (i.e. $S$) and the set of actions (i.e. $A$). The return value is then a data frame containing the experienced state transition tuples $(s_i, a_i, r_{i+1}, s_{i+1})$ for $i = 1, \ldots, N$. 
+
+# Notes on Performance
+
+TBC
 
 # References
