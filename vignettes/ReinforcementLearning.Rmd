@@ -340,7 +340,19 @@ Notes:
 
 # Notes on performance
 
-TBC
+Q-learning is guaranteed to converge to an optimal policy. However, the method is computationally demanding as it relies on continuous interactions between an agent and its environment. To remedy this, the \pkg{ReinforcementLearning} package allows users to perform batch reinforcement learning. In most scenarios, this reinforcement learning variant benefits computational performance as it mitigates the ‘exploration overhead’ problem in pure online learning. In combination with experience replay, it speeds up convergence by collecting and replaying observed state transitions repeatedly to the agent as if they were new observations collected while interacting with the system. Nonetheless, due to the fact that the package is written purely in R, the applicability of the package to very large scale problems (such as applications from computer vision) is still limited. In the following, we briefly outline things the package can do and situtations in which one should consider utilizing reinforcement learning implementations written in "faster" programming languages such as C++.
+
+What the ReinforcementLearning R package can do:
+
+* Learning optimal strategies for real-world problems with limited state and action sets (e.g. finding optimal strategies for simple games, training a simple stock market trading agent, learning polarity labels in applications from natural language processing).
+* The packages allows one to speed up performance by adjusting learning parameters and making use of experience replay.
+* The package allows one to train an agent from pre-defined observations without the need for modeling the dynamics of the environment. Typically, this approach drastically speeds up convergence and can be useful in situations in which the state-transition tuples have been collected from an external source, such as sensor data.
+* The package provides a highly customizable framework for model-free reinforcement learning tasks in which the functionality can easily be extended. For example, users may attempt to speed up performance by defining alternative reinforcement learning algorithms and integrating them into package code.
+
+What the ReinforcementLearning R package cannot do:
+
+* Solving large-scale problems with high-dimensional state-action spaces such as those from computer vision (users may consider reinforcement learning implementations written in "faster" programming languages)
+* Solving reinforcement learning problems requiring real-time interaction (e.g. real-time interaction with a robot)
 
 # License
 
