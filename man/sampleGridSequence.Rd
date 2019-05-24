@@ -4,8 +4,8 @@
 \alias{sampleGridSequence}
 \title{Sample grid sequence}
 \usage{
-sampleGridSequence(N, actionSelection = "random", control = list(alpha =
-  0.1, gamma = 0.1, epsilon = 0.1), model = NULL, ...)
+sampleGridSequence(N, actionSelection = "random", control = list(alpha
+  = 0.1, gamma = 0.1, epsilon = 0.1), model = NULL, ...)
 }
 \arguments{
 \item{N}{Number of samples.}

@@ -8,7 +8,7 @@
 #' @return Function that implements the specific learning rule.
 lookupLearningRule <- function(type) {
   if (type == "experienceReplay") {
-    return(experienceReplay)
+    return(replayExperience)
   }
 
   stop("Name of learning rule not recognized. Corresponding argument has an invalid value.")

@@ -101,7 +101,7 @@ options:
     issue](https://github.com/nproellochs/ReinforcementLearning/issues).
   - Fork the source code, modify, and issue a [pull
     request](https://help.github.com/articles/creating-a-pull-request-from-a-fork/)
-    through the[project GitHub
+    through the [project GitHub
     page](https://github.com/nproellochs/ReinforcementLearning).
 
 ## License

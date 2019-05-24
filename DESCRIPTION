@@ -1,13 +1,13 @@
 Package: ReinforcementLearning
 Type: Package
 Title: Model-Free Reinforcement Learning
-Version: 1.0.3
-Date: 2019-04-21
-Authors@R: c(person("Nicolas", "Proellochs", email="nicolas.proellochs@is.uni-freiburg.de",
+Version: 1.0.4
+Date: 2019-05-24
+Authors@R: c(person("Nicolas", "Proellochs", email="nicolas.proellochs@wi.jlug.de",
                     role=c("aut", "cre")),
              person("Stefan", "Feuerriegel", email="sfeuerriegel@ethz.ch",
                     role=c("aut")))
-Maintainer: Nicolas Proellochs <nicolas.proellochs@is.uni-freiburg.de>
+Maintainer: Nicolas Proellochs <nicolas.proellochs@wi.jlug.de>
 Description: Performs model-free reinforcement learning in R. This implementation enables the learning
     of an optimal policy based on sample sequences consisting of states, actions and rewards. In 
     addition, it supplies multiple predefined reinforcement learning algorithms, such as experience 

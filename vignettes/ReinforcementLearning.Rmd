@@ -145,7 +145,7 @@ The result of the learning process is a state-action table and an optimal policy
 
 ```{r, message=FALSE}
 # Print policy
-policy(model)
+computePolicy(model)
 ```
 
 ## Updating an existing policy
@@ -212,7 +212,7 @@ model <- ReinforcementLearning(tictactoe, s = "State", a = "Action", r = "Reward
                                s_new = "NextState", iter = 1, control = control)
 
 # Print optimal policy
-policy(model)
+computePolicy(model)
 ```
 
 Notes: 

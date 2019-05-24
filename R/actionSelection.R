@@ -12,7 +12,7 @@
 #' @importFrom stats runif
 #' @references Sutton and Barto (1998). "Reinforcement Learning: An Introduction", MIT Press, Cambridge, MA.
 #' @export
-epsilonGreedyActionSelection <- function(Q, state, epsilon) {
+selectEpsilonGreedyAction <- function(Q, state, epsilon) {
   if (runif(1) <= epsilon) {
     best_action <- names(sample(values(Q[[state]]), 1))
   } else {
@@ -31,7 +31,7 @@ epsilonGreedyActionSelection <- function(Q, state, epsilon) {
 #' @return Character value defining the next action.
 #' @import hash
 #' @export
-randomActionSelection <- function(Q, state, epsilon) {
+selectRandomAction <- function(Q, state, epsilon) {
   return(names(sample(values(Q[[state]]), 1)))
 }
 
@@ -43,10 +43,42 @@ randomActionSelection <- function(Q, state, epsilon) {
 #' @return Function that implements the specific learning rule.
 lookupActionSelection <- function(type) {
   if (type == "epsilon-greedy") {
-    return(epsilonGreedyActionSelection)
+    return(selectEpsilonGreedyAction)
   }
   if (type == "random") {
-    return(randomActionSelection)
+    return(selectRandomAction)
   }
   stop("Rule for action selection not recognized. Corresponding argument has an invalid value.")
+}
+
+#' Performs \eqn{\varepsilon}-greedy action selection
+#'
+#' Deprecated. Please use [ReinforcementLearning::selectEpsilonGreedyAction()] instead.
+#'
+#' @param Q State-action table of type \code{hash}.
+#' @param state The current state.
+#' @param epsilon Exploration rate between 0 and 1.
+#' @return Character value defining the next action.
+#' @import hash
+#' @importFrom stats runif
+#' @references Sutton and Barto (1998). "Reinforcement Learning: An Introduction", MIT Press, Cambridge, MA.
+#' @export
+epsilonGreedyActionSelection <- function(Q, state, epsilon) {
+  .Deprecated("selectEpsilonGreedyAction")
+  selectEpsilonGreedyAction(Q, state, epsilon)
+}
+
+#' Performs random action selection
+#'
+#' Deprecated. Please use [ReinforcementLearning::selectRandomAction()] instead.
+#'
+#' @param Q State-action table of type \code{hash}.
+#' @param state The current state.
+#' @param epsilon Exploration rate between 0 and 1 (not used).
+#' @return Character value defining the next action.
+#' @import hash
+#' @export
+randomActionSelection <- function(Q, state, epsilon) {
+  .Deprecated("selectRandomAction")
+  selectRandomAction(Q, state, epsilon)
 }

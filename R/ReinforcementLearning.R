@@ -57,7 +57,7 @@ ReinforcementLearning <- function(data, s = "s", a = "a", r = "r", s_new = "s_ne
   if (!(iter > 0 && length(iter) == 1 && is.numeric(iter) && floor(iter) == iter)) {
     stop("Argument 'iter' should be an integer > 0.")
   }
-  if(class(model) != "rl" && !is.null(model)) {
+  if (class(model) != "rl" && !is.null(model)) {
     stop("Argument 'model' must be empty or of type 'rl'.")
   }
   if (!is.list(control)) {
@@ -69,16 +69,16 @@ ReinforcementLearning <- function(data, s = "s", a = "a", r = "r", s_new = "s_ne
   if (any(control > 1) || any(control < 0)) {
     stop("Control parameter values must be between 0 and 1.")
   }
-  if(!is.data.frame(data)) {
+  if (!is.data.frame(data)) {
     stop("Argument 'data' must of type 'data.frame'.")
   }
-  if("tbl" %in% class(data)) {
+  if ("tbl" %in% class(data)) {
     data <- as.data.frame(data)
   }
-  if(!(is.character(s) && is.character(a) && is.character(r) && is.character(s_new))) {
+  if (!(is.character(s) && is.character(a) && is.character(r) && is.character(s_new))) {
     stop("Arguments 's', 'a', 'r', and 's_new' must be of type 'character'.")
   }
-  if(sum(c(s, a, r, s_new) %in% colnames(data)) != 4) {
+  if (sum(c(s, a, r, s_new) %in% colnames(data)) != 4) {
     stop("Data columns invalid or not provided.")
   } else {
     d <- data.frame(
@@ -90,10 +90,10 @@ ReinforcementLearning <- function(data, s = "s", a = "a", r = "r", s_new = "s_ne
     )
     colnames(d)
   }
-  if(!(is.character(d$s) && is.character(d$a) && is.character(d$s_new) && is.numeric(d$r))) {
+  if (!(is.character(d$s) && is.character(d$a) && is.character(d$s_new) && is.numeric(d$r))) {
     stop("Input data invalid. States and actions must be of type 'character', while rewards must be of type 'numeric'.")
   }
-  if(any(is.na(d$r))) {
+  if (any(is.na(d$r))) {
     stop("Input data invalid. Reward column contains NA values.")
   }
   if (is.null(model)) {
@@ -126,7 +126,7 @@ ReinforcementLearning <- function(data, s = "s", a = "a", r = "r", s_new = "s_ne
   out$Q <- t(data.frame(lapply(out$Q, unlist)))
   out$States <- rownames(out$Q)
   out$Actions <- colnames(out$Q)
-  out$Policy <- policy(out$Q)
+  out$Policy <- computePolicy(out$Q)
   out$LearningRule <- learningRule
   out$Reward <- sum(d$r)
   out$RewardSequence <- c(rewardSequence, rep(sum(d$r), iter))
@@ -165,13 +165,13 @@ summary.rl <- function(object, ...) {
 #' @export
 predict.rl <- function(object, newdata = NULL, ...) {
   if (missing(newdata) || is.null(newdata)) {
-    return(policy(object))
+    return(computePolicy(object))
   }
   if (!is.vector(newdata)) {
     stop("Argument 'newdata' must be of type vector.")
   }
 
-  p <- policy(object)
+  p <- computePolicy(object)
   if (!all(newdata %in% object$States)) {
     stop("Invalid state in argument 'newdata'.")
   }

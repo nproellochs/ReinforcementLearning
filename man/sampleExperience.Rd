@@ -5,8 +5,8 @@
 \title{Sample state transitions from an environment function}
 \usage{
 sampleExperience(N, env, states, actions, actionSelection = "random",
-  control = list(alpha = 0.1, gamma = 0.1, epsilon = 0.1), model = NULL,
-  ...)
+  control = list(alpha = 0.1, gamma = 0.1, epsilon = 0.1),
+  model = NULL, ...)
 }
 \arguments{
 \item{N}{Number of samples.}

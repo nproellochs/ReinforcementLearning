@@ -40,13 +40,13 @@ sampleExperience <- function(N, env, states, actions, actionSelection = "random"
   if (!is.function(env)) {
     stop("Argument 'env' describing the environment must be of type function.")
   }
-  if(!is.character(states)) {
+  if (!is.character(states)) {
     stop("Arguments 'states' must be of type 'character'.")
   }
-  if(!is.character(actions)) {
+  if (!is.character(actions)) {
     stop("Arguments 'actions' must be of type 'character'.")
   }
-  if(class(model) != "rl" && !is.null(model)) {
+  if (class(model) != "rl" && !is.null(model)) {
     stop("Argument 'model' must be empty or of type 'rl'.")
   }
   if (!is.list(control)) {

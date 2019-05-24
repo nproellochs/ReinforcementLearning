@@ -1,5 +1,5 @@
 library(ReinforcementLearning)
-context("experienceReplay")
+context("replayExperience")
 
 test_that("Experience replay performs correctly", {
   suppressWarnings(RNGversion("3.5.0"))
@@ -20,13 +20,13 @@ test_that("Experience replay performs correctly", {
   }
 
   control <- list(alpha = 0.1, gamma = 0.1, epsilon = 0.1)
-  res <- experienceReplay(d, Q, control)
+  res <- replayExperience(d, Q, control)
 
   expect_equal(is.list(res), TRUE)
   expect_equal(is.hash(res$Q), TRUE)
   expect_equal(is.hash(res$Q$s1), TRUE)
 
-  expect_error(experienceReplay(d, Q))
-  expect_error(experienceReplay(d, Q = "Q", control))
-  expect_error(experienceReplay("s1", Q, control))
+  expect_error(replayExperience(d, Q))
+  expect_error(replayExperience(d, Q = "Q", control))
+  expect_error(replayExperience("s1", Q, control))
 })

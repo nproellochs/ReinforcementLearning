@@ -3,10 +3,10 @@ context("actionSelection")
 
 test_that("ActionSelection function is choosing the right return value correctly", {
   l <- lookupActionSelection("epsilon-greedy")
-  expect_equal(l, epsilonGreedyActionSelection)
+  expect_equal(l, selectEpsilonGreedyAction)
 
   l <- lookupActionSelection("random")
-  expect_equal(l, randomActionSelection)
+  expect_equal(l, selectRandomAction)
 
   expect_error(lookupActionSelection("1"))
   expect_error(lookupActionSelection(NULL))

@@ -5,9 +5,10 @@
 \alias{rl}
 \title{Performs reinforcement learning}
 \usage{
-ReinforcementLearning(data, s = "s", a = "a", r = "r", s_new = "s_new",
-  learningRule = "experienceReplay", iter = 1, control = list(alpha = 0.1,
-  gamma = 0.1, epsilon = 0.1), verbose = F, model = NULL, ...)
+ReinforcementLearning(data, s = "s", a = "a", r = "r",
+  s_new = "s_new", learningRule = "experienceReplay", iter = 1,
+  control = list(alpha = 0.1, gamma = 0.1, epsilon = 0.1), verbose = F,
+  model = NULL, ...)
 }
 \arguments{
 \item{data}{A dataframe containing the input sequences for reinforcement learning.
