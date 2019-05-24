@@ -89,6 +89,27 @@ print(model)
 #> [1] -263
 ```
 
+## Learning Reinforcement Learning
+
+If you are new to reinforcement learning, you are better off starting
+with a systematic introduction, rather than trying to learn from reading
+individual documentation pages. There are three good places to start:
+
+1.  A thorough introduction to reinforcement learning is provided in
+    [Sutton
+    (1998)](https://www.semanticscholar.org/paper/Reinforcement-Learning%3A-An-Introduction-Sutton-Barto/dd90dee12840f4e700d8146fb111dbc863a938ad).
+
+2.  The package
+    [vignette](https://github.com/nproellochs/ReinforcementLearning/blob/master/vignettes/ReinforcementLearning.Rmd)
+    demonstrates the main functionalities of the ReinforcementLearning R
+    package by drawing upon common examples from the literature
+    (e.g. finding optimal game strategies).
+
+3.  Multiple blog posts on
+    [R-bloggers](https://www.r-bloggers.com/reinforcement-learning-q-learning-with-the-hopping-robot/)
+    demonstrate the capabilities of the ReinforcementLearning package
+    using practical examples.
+
 ## Contributing
 
 If you experience any difficulties with the package, or have
