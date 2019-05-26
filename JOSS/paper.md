@@ -6,14 +6,17 @@ tags:
   - Batch Learning
   - Experience Replay
   - Q-Learning
-author:
-  - name: Nicolas Pr&ouml;llochs
-    affiliation: University of Giessen, University of Oxford
-    email: \email{nicolas.proellochs@wi.jlug.de}
+authors:
+  - name: Nicolas Proellochs
+    affiliation: "1, 2" # (Multiple affiliations must be quoted)
   - name: Stefan Feuerriegel
-    affiliation: ETH Zurich
-    email: \email{sfeuerriegel@ethz.ch}
-date: 24 May 2019
+    affiliation: 2
+affiliations:
+ - name: University of Oxford
+   index: 1
+ - name: ETH Zurich
+   index: 2
+date: 26 May 2019
 bibliography: paper.bib
 output:
   html_document:
