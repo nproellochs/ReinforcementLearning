@@ -6,6 +6,7 @@
 [![Build
 Status](https://travis-ci.org/nproellochs/ReinforcementLearning.svg?branch=master)](https://travis-ci.org/nproellochs/ReinforcementLearning)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/ReinforcementLearning)](https://cran.r-project.org/package=ReinforcementLearning)
+[![DOI](http://joss.theoj.org/papers/10.21105/joss.01087/status.svg)](https://doi.org/10.21105/joss.01087)
 
 **ReinforcementLearning** performs model-free reinforcement learning in
 R. This implementation enables the learning of an optimal policy based
