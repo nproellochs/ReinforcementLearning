@@ -7,15 +7,17 @@ tags:
   - Experience Replay
   - Q-Learning
 authors:
-  - name: Nicolas Proellochs
+  - name: Nicolas Pr&ouml;llochs
     affiliation: "1, 2" # (Multiple affiliations must be quoted)
   - name: Stefan Feuerriegel
-    affiliation: 2
+    affiliation: 3
 affiliations:
- - name: University of Oxford
+ - name: University of Giessen
    index: 1
- - name: ETH Zurich
+ - name: University of Oxford
    index: 2
+ - name: ETH Zurich
+   index: 3
 date: 26 May 2019
 bibliography: paper.bib
 output:
