@@ -1,4 +1,9 @@
-# ReinforcementLearning 1.0.4
+# ReinforcementLearning 1.0.5
+
+# Version 1.0.5
+
+* More natural naming of compound state names in policy table
+* Additional input checks when using custom environment functions
 
 # Version 1.0.4
 
