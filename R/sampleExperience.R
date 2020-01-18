@@ -46,6 +46,9 @@ sampleExperience <- function(N, env, states, actions, actionSelection = "random"
   if (!is.character(actions)) {
     stop("Arguments 'actions' must be of type 'character'.")
   }
+  if (sum(c("NextState", "Reward") %in% names(env(states[1], actions[1]))) != 2) {
+    stop("Environment function 'env' must return a list containing the following named items: 'NextState', 'Reward'.")
+  }
   if (class(model) != "rl" && !is.null(model)) {
     stop("Argument 'model' must be empty or of type 'rl'.")
   }
