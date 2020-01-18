@@ -123,7 +123,9 @@ ReinforcementLearning <- function(data, s = "s", a = "a", r = "r", s_new = "s_ne
   out$Q_hash <- learned[[length(learned)]]$Q
   out$Q <- lapply(as.list(learned[[length(learned)]]$Q, all.names = T), function(x)
     as.list(x, all.names = T))
+  stateNames <- names(out$Q)
   out$Q <- t(data.frame(lapply(out$Q, unlist)))
+  rownames(out$Q) <- stateNames
   out$States <- rownames(out$Q)
   out$Actions <- colnames(out$Q)
   out$Policy <- computePolicy(out$Q)
