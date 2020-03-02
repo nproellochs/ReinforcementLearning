@@ -2,7 +2,7 @@ Package: ReinforcementLearning
 Type: Package
 Title: Model-Free Reinforcement Learning
 Version: 1.0.5
-Date: 2020-01-18
+Date: 2020-03-02
 Authors@R: c(person("Nicolas", "Proellochs", email="nicolas.proellochs@wi.jlug.de",
                     role=c("aut", "cre")),
              person("Stefan", "Feuerriegel", email="sfeuerriegel@ethz.ch",
